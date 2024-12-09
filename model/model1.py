@@ -3,6 +3,10 @@ import os
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 import pathlib
 from tensorflow.keras.applications import ResNet50
+from tensorflow.keras.layers import AveragePooling2D
+from tensorflow.keras.layers import Flatten
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Dropout
 
 # Paths to datasets
 
@@ -52,6 +56,7 @@ headModel = AveragePooling2D(pool_size=(7, 7))(headModel)
 headModel = Flatten(name="flatten")(headModel)
 headModel = Dense(256, activation="relu")(headModel)
 headModel = Dropout(0.5)(headModel)
-headModel = Dense(len(config.CLASSES), activation="softmax")(headModel)
+headModel = Dense(len(images), activation="softmax")(headModel)
 
-model = Model(inputs=baseModel.input, outputs=headModel)
+model = Model(inputs=pt_model.input, outputs=headModel)
+

@@ -2,8 +2,9 @@ from PIL import Image
 import os
 
 # Set paths
-input_dir = "dataset"  # Original dataset directory containing 'yes' and 'no'
-output_dir = "resized_dataset"  # Directory to save resized images
+input_dir = "dataset2"  # Original dataset directory containing
+# 'yes' and 'no'
+output_dir = "resized_dataset2"  # Directory to save resized images
 target_size = (224, 224)  # Desired image size (width, height)
 
 def resize_images(input_dir, output_dir, target_size):
