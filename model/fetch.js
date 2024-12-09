@@ -1,45 +1,11 @@
-// import fetch from "node-fetch";
-// import fs from "fs";
-// import path from "path";
-//
-//
-// // Number of images to download
-// const NUM_IMAGES = 100;
-// const OUTPUT_DIR = path.resolve("./dataset");
-//
-// if (!fs.existsSync(OUTPUT_DIR)) {
-//     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-// }
-//
-// // Function to download an image
-// async function downloadImage(url, filename) {
-//     const response = await fetch(url);
-//     const arrayBuffer = await response.arrayBuffer();
-//     fs.writeFileSync(filename, Buffer.from(arrayBuffer));
-//     console.log(`Downloaded: ${filename}`);
-// }
-//
-//
-// // Main function
-// async function downloadImages() {
-//     const url = "https://thispersondoesnotexist.com/";
-//     for (let i = 1; i <= NUM_IMAGES; i++) {
-//         const filename = path.join(OUTPUT_DIR, `person_${i}.jpg`);
-//         await downloadImage(url, filename);
-//     }
-// }
-//
-// // Run the script
-// downloadImages().catch(console.error);
-
 
 import fetch from "node-fetch";
 import fs from "fs";
 import path from "path";
 
 // Number of images to download
-const NUM_IMAGES = 400;
-const OUTPUT_DIR = path.resolve("./dataset");
+const NUM_IMAGES = 1000;
+const OUTPUT_DIR = path.resolve("./dataset2");
 
 // Ensure output directory exists
 if (!fs.existsSync(OUTPUT_DIR)) {
@@ -68,7 +34,7 @@ async function downloadImage(url, filename) {
 
 // Function to retry fetching images
 async function fetchImages(url, numImages) {
-    let downloaded = 300;
+    let downloaded = 500;
 
     while (downloaded < numImages) {
         const filename = path.join(OUTPUT_DIR, `person_${downloaded + 1}.jpg`);

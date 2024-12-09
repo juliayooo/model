@@ -2,6 +2,7 @@ import tensorflow as tf
 import os
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 import pathlib
+from tensorflow.keras.applications import ResNet50
 
 # Paths to datasets
 
@@ -15,10 +16,7 @@ train_dataset = image_dataset_from_directory(train_dir,
                                           image_size=img_size,
                                              batch_size=batch_size, labels='inferred')
 
-# archive = tf.keras.utils.get_file(origin=train_dir, extract=True)
-# check_dir = pathlib.Path(archive)
-# image_count = len(list(check_dir.glob('*/*.jpg')))
-# print(image_count)
+
 class_names = train_dataset.class_names
 
 print(class_names)
@@ -39,3 +37,21 @@ for images, labels in train_dataset.take(1):  # Grab the first batch
 
 print(tf.__version__)
 
+
+#  THIS FUNCTION CREATES THE DATA TENSOR ^^^^
+
+# PRETRAINED MODEL RESNET50
+pt_model = ResNet50(weights='imagenet', include_top=False,
+                    input_shape=(224, 224, 3))
+
+# FREEZE THE BASE MODEL's LAYERS SO MY DATA DOESN'T CHANGE THEM
+pt_model.trainable = False
+
+headModel = pt_model.output
+headModel = AveragePooling2D(pool_size=(7, 7))(headModel)
+headModel = Flatten(name="flatten")(headModel)
+headModel = Dense(256, activation="relu")(headModel)
+headModel = Dropout(0.5)(headModel)
+headModel = Dense(len(config.CLASSES), activation="softmax")(headModel)
+
+model = Model(inputs=baseModel.input, outputs=headModel)
