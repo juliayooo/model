@@ -1,5 +1,9 @@
 import tensorflow as tf
 import os
+import torch
+import torch.nn as nn
+# from torchvision import datasets, transforms 
+from torch.utils.data import DataLoader
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 import pathlib
 from tensorflow.keras.applications import ResNet50
@@ -8,7 +12,20 @@ from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Dropout
 from tensorflow.keras.models import Model
+from tensorflow.keras.models import load_model
+from tensorflow.keras.optimizers import Adam
+import matplotlib.pyplot as plt
+
+
+saved_model = "trained_model2.h5"
+model = load_model(saved_model)
+model.summary()
+
 print("available GPUs:", len(tf.config.list_physical_devices('GPU')))
+# saved_model = "trained_model.h5"
+# model = torch.load(saved_model)
+# model.train()
+
 
 # Paths to datasets
 
@@ -16,9 +33,9 @@ print("available GPUs:", len(tf.config.list_physical_devices('GPU')))
 # val_dir = r"C:\Users\24036868\Desktop\split-dataset\val"
 # test_dir = r"C:\Users\24036868\Desktop\split-dataset\test"
 
-train_dir = r"resized_dataset\train"
-val_dir = r"resized_dataset\\val"
-test_dir = r"resized_dataset\\test"
+train_dir = "data2/train"
+val_dir = "data2/val"
+test_dir = "data2/test"
 
 
 img_size = (224, 224)
@@ -44,55 +61,13 @@ train_dataset = image_dataset_from_directory(train_dir,
                                              batch_size=batch_size, labels='inferred')
 
 
-class_names = train_dataset.class_names
-
-print(class_names)
-print(train_dataset)
-
-# Take one batch from the dataset
-for images, labels in train_dataset.take(1):  # Grab the first batch
-    # Access the first image and its label in the batch
-    image = images[0]  # First image tensor
-    label = labels[0]  # Corresponding label tensor
-
-    # Print the tensor values for the image and its label
-    print("Image Tensor:")
-    print(image.numpy())  # Convert to numpy array for printing
-    print("\nLabel:")
-    print(label.numpy())  # Convert label tensor to numpy
-    break  # Exit after processing one batch
-
-print(tf.__version__)
-
-
-#  THIS FUNCTION CREATES THE DATA TENSOR ^^^^
-
-# PRETRAINED MODEL RESNET50
-pt_model = ResNet50(weights='imagenet', include_top=False,
-                    input_shape=(224, 224, 3))
-
-# FREEZE THE BASE MODEL's LAYERS SO MY DATA DOESN'T CHANGE THEM
-pt_model.trainable = False
-
-headModel = pt_model.output
-headModel = AveragePooling2D(pool_size=(7, 7))(headModel)
-headModel = Flatten(name="flatten")(headModel)
-headModel = Dense(256, activation="relu")(headModel)
-headModel = Dropout(0.5)(headModel)
-headModel = Dense(len(images), activation="softmax")(headModel)
-
-model = Model(inputs=pt_model.input, outputs=headModel)
-
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
-
 val_dataset = image_dataset_from_directory(
     val_dir,
     image_size=img_size,
     batch_size=batch_size,
     labels='inferred'
 )
+
 
 # If you also need a test dataset
 test_dataset = image_dataset_from_directory(
@@ -101,9 +76,40 @@ test_dataset = image_dataset_from_directory(
     batch_size=batch_size,
     labels='inferred'
 )
+
+
+class_names = train_dataset.class_names
+
+print(class_names)
+print(train_dataset)
+
+# Take one batch from the dataset
+for images, labels in val_dataset.take(10):  # Grab the first batch
+    # Access the first image and its label in the batch
+    image = images[0]  # First image tensor
+    label = labels[0]  # Corresponding label tensor
+
+    # Print the tensor values for the image and its label
+    # print("Image Tensor:")
+    # print(image.numpy())  # Convert to numpy array for printing
+    # print("\nLabel:")
+    print(labels)  # Convert label tensor to numpy
+    break  # Exit after processing one batch
+
+print(tf.__version__)
+
+
+
+model.compile(optimizer='Adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+
+print(train_dataset)
+print(val_dataset)
 history = model.fit(train_dataset,
                     validation_data=val_dataset,
                     epochs=20)
 
-model.save('trained_model.h5')
+model.save('trained_model3.h5')
            
