@@ -13,8 +13,6 @@ model = load_model(saved_model)
 model.summary()
 
 
-
-
 #make dir if not existing
 save_dir = "../images"
 if not os.path.exists(save_dir):
@@ -68,3 +66,33 @@ while 1:
 
 cap.release()
 cv2.destroyAllWindows()
+
+
+print("available GPUs:", len(tf.config.list_physical_devices('GPU')))
+
+# get images from saved directory
+ref_dir = "../images/"
+# create the img dataset
+live_dataset = image_dataset_from_directory(ref_dir,
+                                             image_size=(224,224),
+                                             batch_size=25,
+                                           labels='inferred')
+
+# identify class names
+class_names = live_dataset.class_names
+# use pyplot to show predictions and real answers
+
+for images, labels in live_dataset.take(1):  # Take one batch
+    predictions = model.predict(images)  # Get model predictions
+    predicted_labels = np.argmax(predictions, axis=1)
+
+    plt.figure(figsize=(10, 10))  # Create a figure with size
+    for i in range(25):  # Display first 25 images
+        ax = plt.subplot(5, 5, i + 1)  # 5x5 grid
+        plt.imshow(images[i].numpy().astype("uint8"))  # Convert tensor to image
+        plt.title(f"Pred: {class_names[predicted_labels[i]]} | Real:"
+                  f" {class_names[labels[i].numpy()]}")
+        plt.axis("off")  # Hide axis
+    plt.show()  # Show the figure
+
+    break

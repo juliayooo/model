@@ -17,6 +17,7 @@ pred_dataset = image_dataset_from_directory(train_dir,
                                              image_size=(224,224),
                                              batch_size=25,
                                            labels='inferred')
+
 # identify class names
 class_names = pred_dataset.class_names
 #use pyplot to show predictions and real answers
