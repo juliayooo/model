@@ -61,7 +61,7 @@ face_cascade = cv2.CascadeClassifier(
 #     print("i : "+str(i)+" /// result: "+str(test))
 #
 
-# this works only with OBS on 
+# this works only with OBS on
 cap = cv2.VideoCapture(2)
 
 while 1:
