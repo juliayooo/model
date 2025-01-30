@@ -26,7 +26,7 @@ while 1:
     ret, img = cap.read()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     # Look for faces
     for (x, y, w, h) in faces:
@@ -51,6 +51,8 @@ while 1:
             faceimg = img[y:y + h, x:x + w]
             cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
             # save face images to image folder
+            roi_gray = gray[y:y + h, x:x + w]
+            roi_color = img[y:y + h, x:x + w]
             counter+=1
             cv2.imwrite("../images/face_" + str(rid) + ".png",
                         faceimg)
