@@ -85,10 +85,9 @@ while 1:
                 predictions = model.predict(
                     images)  # Get model predictions
                 predicted_labels = np.argmax(predictions, axis=1)
-                os.remove("../images/yes/face_" + str(counter) + ".png")
+
                 plt.figure(
                     figsize=(5,5))
-
                 for i in range(1):
                     ax = plt.subplot(1, 1, i + 1)
                     plt.imshow(images[i].numpy().astype(
@@ -98,12 +97,7 @@ while 1:
                         f" {class_names[predicted_labels[i]]}")
                 plt.show()  # Show the figure
 
-
-
-
-
                 break
-
 
 #######
     cv2.imshow('img', img)
