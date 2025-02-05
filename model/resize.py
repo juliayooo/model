@@ -2,9 +2,12 @@ from PIL import Image
 import os
 
 # Set paths
-input_dir = "resized_augment2"  # Original dataset directory containing
+input_dir = "split-human-faces/val"  # Original dataset directory
+# containing
 # 'yes' and 'no'
-output_dir = "png_augment2"  # Directory to save resized images
+output_dir = "split-human-faces-resized/val"  # Directory to save
+# resized
+# images
 target_size = (224, 224)  # Desired image size (width, height)
 
 def resize_images(input_dir, output_dir, target_size):
@@ -28,7 +31,7 @@ def resize_images(input_dir, output_dir, target_size):
                 print(filename)
                 input_path = os.path.join(input_category_dir, filename)
                 output_path = os.path.join(output_category_dir, filename)
-    
+
                 try:
                     # Open, resize, and save the image
                     with Image.open(input_path) as img:

@@ -8,8 +8,7 @@ import numpy as np
 import cv2
 import os
 
-saved_model = ("/Users/juliayoo/Desktop/MODEL-ITERATIONS"
-               "/trained_model3.h5")
+saved_model = ("trained_model4.h5")
 model = load_model(saved_model)
 model.summary()
 

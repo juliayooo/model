@@ -4,7 +4,7 @@ from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 import numpy as np
 
-saved_model = "trained_model3.h5"
+saved_model = "trained_model4.h5"
 model = load_model(saved_model)
 model.summary()
 

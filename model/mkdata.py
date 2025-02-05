@@ -10,7 +10,7 @@ image_list = []
 labels = []
 
 # Paths
-output_dir = "sorteddataset2"
+output_dir = "sorted-human-faces"
 yes_dir = os.path.join(output_dir, "Yes")
 no_dir = os.path.join(output_dir, "No")
 metadata_file = os.path.join(output_dir, "labels.csv")
