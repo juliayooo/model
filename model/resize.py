@@ -2,10 +2,10 @@ from PIL import Image
 import os
 
 # Set paths
-input_dir = "split-human-faces/val"  # Original dataset directory
+input_dir = "set-images-cropped/val"  # Original dataset directory
 # containing
 # 'yes' and 'no'
-output_dir = "split-human-faces-resized/val"  # Directory to save
+output_dir = "set-images-cropped-resized/val"  # Directory to save
 # resized
 # images
 target_size = (224, 224)  # Desired image size (width, height)
