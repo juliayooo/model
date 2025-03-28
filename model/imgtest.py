@@ -4,7 +4,7 @@ from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 import numpy as np
 
-saved_model = ("trained_model6.h5")
+saved_model = ("trained_model3.h5")
 # saved_model = "trained_model4.h5"
 
 model = load_model(saved_model)
@@ -13,7 +13,7 @@ model.summary()
 print("available GPUs:", len(tf.config.list_physical_devices('GPU')))
 
 # choose directory for data
-train_dir = "/Users/juliayoo/Desktop/DATA/resized_dataset2"
+train_dir = "/Users/juliayoo/PycharmProjects/Learning0/model/images"
 # create the img dataset
 pred_dataset = image_dataset_from_directory(train_dir,
                                              image_size=(224,224),

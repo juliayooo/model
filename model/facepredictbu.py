@@ -8,8 +8,7 @@ import numpy as np
 import cv2
 import os
 
-saved_model = ("/Users/juliayoo/Desktop/MODEL-ITERATIONS"
-               "/trained_model3.h5")
+saved_model = ("trained_model3.h5")
 model = load_model(saved_model)
 model.summary()
 
@@ -75,7 +74,10 @@ while 1:
                                                         labels='inferred')
 
             # identify class names
-            class_names = live_dataset.class_names
+            dataset = image_dataset_from_directory(
+                "/Users/juliayoo/Desktop/DATA/resized_dataset2",
+                batch_size=1)
+            class_names = dataset.class_names  # This stores the correct class mapping
 
             # use pyplot to show predictions and real answers
             print(counter)
