@@ -7,6 +7,7 @@ import numpy as np
 import cv2
 import os
 import serial
+import time
 
 # Load trained model
 saved_model = ("trained_model3.h5")
@@ -59,7 +60,8 @@ while True:
     if key == 27:
         break
 
-    # If SPACE is pressed, capture face
+    time.sleep(10);
+    # Wait 10 seconds
     if key == 32 and len(faces) > 0:
         for (x, y, w, h) in faces:
             counter += 1

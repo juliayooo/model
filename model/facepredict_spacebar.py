@@ -17,7 +17,7 @@ print("Available GPUs:", len(tf.config.list_physical_devices('GPU')))
 
 # Set image directories
 ref_dir = "../images"
-save_dir = "../images/yes"
+save_dir = "../images"
 MARGIN = 30
 # Create directories if not existing
 os.makedirs(save_dir, exist_ok=True)
@@ -28,11 +28,11 @@ face_cascade = cv2.CascadeClassifier(
 
 # Open video capture (change source if needed)
 # 0 for iphone input w OBS 2 for webcam input OBS
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 faces_seen = set()
 fid = (0, 0, 0, 0)
 counter = 0
-ser = serial.Serial('/dev/tty.usbmodem101', 9600)
+ser = serial.Serial('/dev/tty.usbmodem1101', 9600)
 
 def trigger_light(num):
     ser.write(str(num).encode())  # Send signal to Arduino

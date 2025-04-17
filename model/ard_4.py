@@ -10,7 +10,7 @@ import serial
 
 
 # # Load trained model
-model = tf.keras.models.load_model("/Users/juliayoo/Desktop/MODEL-ITERATIONS/trained_model2.h5")
+model = tf.keras.models.load_model("trained_model3.h5")
 
 model.summary()
 
@@ -19,15 +19,15 @@ print("Available GPUs:", len(tf.config.list_physical_devices('GPU')))
 
 # ARDUINO PORT
 
-ser = serial.Serial('/dev/tty.usbmodem101', 9600)
+ser = serial.Serial('/dev/tty.usbmodem1101', 9600)
 
 def trigger_light(num):
     ser.write(str(num).encode())  # Send signal to Arduino
 
 
 # Set image directories
-ref_dir = ("../images")
-save_dir = "./images"
+ref_dir = "../images"
+save_dir = "../images/yes"
 
 # Create directories if not existing
 os.makedirs(save_dir, exist_ok=True)
@@ -38,7 +38,7 @@ face_cascade = cv2.CascadeClassifier(
 
 # Open video capture (change source if needed)
 # 0 for iphone input w OBS 2 for webcam input OBS
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 faces_seen = set()
 fid = (0, 0, 0, 0)
 counter = 0

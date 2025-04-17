@@ -13,11 +13,11 @@ model.summary()
 print("available GPUs:", len(tf.config.list_physical_devices('GPU')))
 
 # choose directory for data
-train_dir = "/Users/juliayoo/PycharmProjects/Learning0/model/images"
+train_dir = ("images/")
 # create the img dataset
 pred_dataset = image_dataset_from_directory(train_dir,
                                              image_size=(224,224),
-                                             batch_size=25,
+                                             batch_size=9,
                                            labels='inferred')
 
 # identify class names
@@ -29,8 +29,8 @@ for images, labels in pred_dataset.take(1):  # Take one batch
     predicted_labels = np.argmax(predictions, axis=1)
 
     plt.figure(figsize=(10, 10))  # Create a figure with size
-    for i in range(25):  # Display first 25 images
-        ax = plt.subplot(5, 5, i + 1)  # 5x5 grid
+    for i in range(9):  # Display first 25 images
+        ax = plt.subplot(3, 3, i + 1)  # 5x5 grid
         plt.imshow(images[i].numpy().astype("uint8"))  # Convert tensor to image
         plt.title(f"Pred: {class_names[predicted_labels[i]]} | Real:"
                   f" {class_names[labels[i].numpy()]}")
